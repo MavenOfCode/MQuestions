@@ -31,12 +31,19 @@ public class ReverseTree {
     public static String  printTree(Node node){
         Stack<Node> nodePrinter = new Stack<>();
         SimpleQueue levelTracker = new SimpleQueue();
+
+        //using StringBuffer vs. StringBuilder because it is thread-safe
         StringBuffer result = new StringBuffer();
 
         //only need to add the node to the queue at first and can refer to it from there
         levelTracker.enqueue(node);
 
         while(levelTracker.size() != 0){
+            //during discussion had this at the end of the while loop instead of the start and the
+            //initial nodePrinter.push(node) outside the while loop
+            //through jUnit testing found this ineffective
+            //testing led to changing oder of peek, push and dequeue towards the top of the while loop
+
             //assign node to be added to printer stack and then taken out of queue
             //this node is now evaluated and it's right/left nodes are enqueued
             //to queue if needed
